@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
             child: FlatButton(
-                  color: Colors.deepOrange[300],
+                  color: Colors.deepOrange[400],
                   padding: EdgeInsets.symmetric(horizontal: 70, vertical: 13),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(23),
