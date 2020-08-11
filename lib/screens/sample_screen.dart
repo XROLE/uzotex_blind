@@ -6,17 +6,22 @@ class SampleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         title: Text('Available Blinds'),
         backgroundColor: Colors.grey,
         centerTitle: true,
       ),
-      body: Column(
-        children: <Widget>[
-          SampleBlindsCarousel(),
-          BookingForm(),
+      body: InkWell(
+              splashColor: Colors.transparent,
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+              child: ListView(
+                 children: <Widget>[
+                 SampleBlindsCarousel(),
+                 BookingForm(),
         ],
+        ),
       ),
     );
   }

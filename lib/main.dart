@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/screens/demo.dart';
 import 'package:uzotex_blind/screens/home.dart';
 
 void main() {
