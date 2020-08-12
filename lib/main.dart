@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:uzotex_blind/screens/demo.dart';
 import 'package:uzotex_blind/screens/home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await DotEnv().load('.env');
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,4 +20,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
