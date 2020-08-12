@@ -8,8 +8,8 @@ class SampleScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Available Blinds'),
-          backgroundColor: Colors.grey,
+          title: Text('Available Blinds', style: TextStyle(color: Colors.black54),),
+          backgroundColor: Colors.grey[300],
           centerTitle: true,
         ),
         body: InkWell(

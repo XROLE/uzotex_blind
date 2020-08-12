@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:uzotex_blind/components/mailer.dart';
 
-
 class BookingForm extends StatefulWidget {
   @override
   _BookingFormState createState() => _BookingFormState();
@@ -12,11 +11,13 @@ class _BookingFormState extends State<BookingForm>
     with SingleTickerProviderStateMixin {
   final emailController = TextEditingController();
   final blindIdController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   AnimationController _controller;
   Animation _animation;
 
   FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -56,55 +57,81 @@ class _BookingFormState extends State<BookingForm>
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: _animation.value / 4),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: Colors.black),
-                    contentPadding: EdgeInsets.symmetric(vertical: 1.0),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.deepOrange[400]),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: _animation.value / 4),
+                  TextFormField(
+                    controller: emailController,
+                    validator: (value) {
+                      final checkMail = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                      if (value.isEmpty) {
+                        return 'Please provide an email';
+                      } else if (!checkMail.hasMatch(value)) {
+                        return 'Email is not valid';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.symmetric(vertical: 1.0),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepOrange[400]),
+                      ),
+                    ),
+                    focusNode: _focusNode,
+                  ),
+                  SizedBox(height: _animation.value / 4),
+                  TextFormField(
+                    controller: blindIdController,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'ID can not be empty';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'ID',
+                      labelStyle: TextStyle(color: Colors.black),
+                      contentPadding: EdgeInsets.symmetric(vertical: 1.0),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.deepOrange[400])),
                     ),
                   ),
-                  focusNode: _focusNode,
-                ),
-                SizedBox(height: _animation.value / 4),
-                TextFormField(
-                  controller: blindIdController,
-                  decoration: InputDecoration(
-                    labelText: 'ID',
-                    labelStyle: TextStyle(color: Colors.black),
-                    contentPadding: EdgeInsets.symmetric(vertical: 1.0),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.deepOrange[400])),
-                  ),
-                ),
-                SizedBox(height: 30.0),
-                InkWell(
-                  onTap: () => {
-                    print('I am a chosen one booking form blind: ... ${blindIdController.text} emai:${emailController.text}'),
-                    sendMail(emailController.text.trim(), blindIdController.text.trim()),
-                  },
-                  child: Container(
-                    height: 40.0,
-                    decoration: BoxDecoration(
-                      color: Colors.deepOrange[400],
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
+                  SizedBox(height: 30.0),
+                  RaisedButton(
+                    padding: EdgeInsets.all(0.0),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        sendMail(
+                          emailController.text.trim(),
+                          blindIdController.text.trim(),
+                        );
+
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text('Booked Succesfully!'),
+                        ));
+
+                        blindIdController.clear();
+                        emailController.clear();
+                      }
+                    },
                     child: Container(
+                      alignment: Alignment.center,
                       width: double.infinity,
-                      child: Center(
-                          child: Text(
-                        'Send Booking',
-                        style: TextStyle(color: Colors.white),
-                      )),
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                        color: Colors.deepOrange[400],
+                      ),
+                      child: Text('Send Booking', style: TextStyle(color: Colors.white, fontSize: 16),),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },

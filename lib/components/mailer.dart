@@ -3,7 +3,6 @@ import 'package:mailer/smtp_server.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void sendMail(String recipientEmail, String id) async {
-  print('Chosen never die RecipientEmail: $recipientEmail with Id: $id');
   String username = DotEnv().env['mailer_username'];
   String password = DotEnv().env['mailer_password'];
 
