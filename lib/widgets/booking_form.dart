@@ -127,7 +127,11 @@ class _BookingFormState extends State<BookingForm>
                       decoration: BoxDecoration(
                         color: Colors.deepOrange[400],
                       ),
-                      child: Text('Send Booking', style: TextStyle(color: Colors.white, fontSize: 16),),
+                      child: Row(
+                        children: [
+                          Text('Send Booking', style: TextStyle(color: Colors.white, fontSize: 16),),
+                        ],
+                      ),
                     ),
                   ),
                 ],
