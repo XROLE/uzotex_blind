@@ -99,16 +99,75 @@ class HomeScreens {
     );
   }
 
-  Container thirdHomeScreen() {
-    return Container(
-      child: Stack(
-        children: [
-          Image(
-            image: AssetImage('assets/images/onboard_image.png'),
+  Stack thirdHomeScreen() {
+    return Stack(fit: StackFit.expand, children: [
+      Container(
+        color: Colors.red,
+        child: Image(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            'assets/images/onboard_image.png',
           ),
-          Center(child: Text('I am a chosen one')),
-        ],
+        ),
       ),
-    );
+      Container(
+        color: Colors.black26,
+        child: Text(''),
+      ),
+      Positioned(
+        top: 50,
+        left: 40,
+        child: Row(
+          children: [
+            Container(
+              height: 38,
+              child: Image(
+                image: AssetImage(
+                  'assets/images/uzotex_logo.png',
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              'Uzotex',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 5,
+              ),
+            ),
+          ],
+        ),
+      ),
+      Positioned(
+        top: 590,
+        left: 95,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+          decoration: BoxDecoration(
+              color: Colors.red, borderRadius: BorderRadius.circular(20)),
+          child: Row(
+            children: [
+              Text(
+                'Book Now',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ]);
   }
 }
