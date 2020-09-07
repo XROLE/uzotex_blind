@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/responsive-height-width.dart';
 
 class HomeScreens {
-  Container firstHomeScreen() {
+  Container firstHomeScreen(context) {
     return Container(
       child: ListView(children: [
         Center(
           child: Column(
             children: [
               Container(
-                height: 100,
-                margin: const EdgeInsets.only(top: 250),
+                height: ResponsiveHeigthAndWidth.getHeigth(0.12, 0.18, context),
+                margin: EdgeInsets.only(
+                  top: ResponsiveHeigthAndWidth.getHeigth(
+                    0.3,
+                    0.3,
+                    context,
+                  ),
+                ),
                 child: Image(
                   image: AssetImage('assets/images/uzotex_logo.png'),
                 ),
@@ -20,7 +27,7 @@ class HomeScreens {
                 style: TextStyle(color: Colors.black),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 220),
+                margin: EdgeInsets.only(top: ResponsiveHeigthAndWidth.getHeigth(0.4, 0.3, context)),
                 child: Text('\u00a9 Xrole'),
               ),
             ],
@@ -30,7 +37,7 @@ class HomeScreens {
     );
   }
 
-  Container secondHomeScreen() {
+  Container secondHomeScreen(context) {
     return Container(
       child: Center(
           child: ListView(
@@ -39,10 +46,10 @@ class HomeScreens {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 180,
+                height: ResponsiveHeigthAndWidth.getHeigth(0.2, 0.3, context),
               ),
               Container(
-                height: 38,
+                height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.09, context),
                 child: Image(
                   image: AssetImage('assets/images/uzotex_logo.png'),
                 ),
@@ -61,18 +68,18 @@ class HomeScreens {
             ],
           ),
           SizedBox(
-            height: 70,
+            height: ResponsiveHeigthAndWidth.getHeigth(0.18, 0.08, context),
           ),
           Container(
             child: Center(
               child: Text(
                 'WINDOW BLIND IN',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: ResponsiveHeigthAndWidth.getHeigth(0.035, 0.04, context)),
               ),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: ResponsiveHeigthAndWidth.getHeigth(0.02, 0.03, context),
           ),
           Container(
             child: Row(
@@ -81,7 +88,7 @@ class HomeScreens {
                 Text(
                   '2',
                   style: TextStyle(
-                    fontSize: 50,
+                    fontSize: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.10, context),
                   ),
                 ),
                 SizedBox(
@@ -89,17 +96,21 @@ class HomeScreens {
                 ),
                 Text(
                   'hours',
-                  style: TextStyle(fontSize: 38, letterSpacing: 13),
+                  style: TextStyle(fontSize: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context), letterSpacing: 13),
                 )
               ],
             ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: ResponsiveHeigthAndWidth.getHeigth(0.24, 0.22, context)),
+            child: Center(child: Text('I am a chosen one')),
           ),
         ],
       )),
     );
   }
 
-  Stack thirdHomeScreen() {
+  Stack thirdHomeScreen(context) {
     return Stack(fit: StackFit.expand, children: [
       Container(
         color: Colors.red,
@@ -115,12 +126,12 @@ class HomeScreens {
         child: Text(''),
       ),
       Positioned(
-        top: 50,
-        left: 40,
+        top: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.08, context),
+        left: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context),
         child: Row(
           children: [
             Container(
-              height: 38,
+              height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.07, context),
               child: Image(
                 image: AssetImage(
                   'assets/images/uzotex_logo.png',
@@ -133,7 +144,7 @@ class HomeScreens {
             Text(
               'Uzotex',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: ResponsiveHeigthAndWidth.getHeigth(0.028, 0.045, context),
                 fontWeight: FontWeight.bold,
                 letterSpacing: 5,
               ),
@@ -142,18 +153,19 @@ class HomeScreens {
         ),
       ),
       Positioned(
-        top: 590,
-        left: 95,
+        top: ResponsiveHeigthAndWidth.getHeigth(0.85, 0.80, context),
+        left: ResponsiveHeigthAndWidth.getHeigth(0.14, 0.60, context),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
           decoration: BoxDecoration(
-              color: Color(AppColor.primaryColor()), borderRadius: BorderRadius.circular(20)),
+              color: Color(AppColor.primaryColor()),
+              borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [
               Text(
                 'Book Now',
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: ResponsiveHeigthAndWidth.getHeigth(0.035, 0.05, context),
                   color: Colors.white,
                 ),
               ),

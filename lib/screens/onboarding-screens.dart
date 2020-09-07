@@ -30,9 +30,9 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
         body: PageView(
           controller: _pageController,
           children: [
-            HomeScreens().firstHomeScreen(),
-            HomeScreens().secondHomeScreen(),
-            HomeScreens().thirdHomeScreen(),
+            HomeScreens().firstHomeScreen(context),
+            HomeScreens().secondHomeScreen(context),
+            HomeScreens().thirdHomeScreen(context),
           ],
         ),
       ),
