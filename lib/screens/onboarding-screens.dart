@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'first-screen.dart';
+import 'home-screens.dart';
 
 class OnboardingScreens extends StatefulWidget {
   OnboardingScreens({Key key}) : super(key: key);

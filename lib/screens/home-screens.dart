@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/service/app-colors.dart';
 
 class HomeScreens {
   Container firstHomeScreen() {
@@ -31,7 +32,6 @@ class HomeScreens {
 
   Container secondHomeScreen() {
     return Container(
-      color: Colors.white,
       child: Center(
           child: ListView(
         children: [
@@ -147,7 +147,7 @@ class HomeScreens {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(20)),
+              color: Color(AppColor.primaryColor()), borderRadius: BorderRadius.circular(20)),
           child: Row(
             children: [
               Text(
