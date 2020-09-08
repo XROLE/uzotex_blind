@@ -11,4 +11,12 @@ class ResponsiveHeigthAndWidth {
       return queryData.size.height * landScapeHeightMultiplier;
     }
   }
+  static double getWidth(double portraitHeightMultiplier, landScapeHeightMultiplier, context) {
+    queryData = MediaQuery.of(context);
+    if(queryData.orientation.toString() == 'Orientation.portrait') {
+      return queryData.size.width * portraitHeightMultiplier;
+    } else {
+      return queryData.size.width * landScapeHeightMultiplier;
+    }
+  }
 }

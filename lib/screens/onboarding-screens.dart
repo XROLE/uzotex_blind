@@ -10,6 +10,7 @@ class OnboardingScreens extends StatefulWidget {
 
 class _OnboardingScreensState extends State<OnboardingScreens> {
   PageController _pageController;
+  int currentPage = 0;
 
   @override
   void initState() {
@@ -29,10 +30,15 @@ class _OnboardingScreensState extends State<OnboardingScreens> {
       home: Scaffold(
         body: PageView(
           controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              currentPage = index;
+            });
+          },
           children: [
-            HomeScreens().firstHomeScreen(context),
-            HomeScreens().secondHomeScreen(context),
-            HomeScreens().thirdHomeScreen(context),
+            HomeScreens().firstHomeScreen(context, currentPage),
+            HomeScreens().secondHomeScreen(context, currentPage),
+            HomeScreens().thirdHomeScreen(context, currentPage),
           ],
         ),
       ),
