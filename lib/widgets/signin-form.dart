@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:uzotex_blind/screens/signin.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
 
-class SignUpForm extends StatefulWidget {
+class SignInForm extends StatefulWidget {
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  _SignInFormState createState() => _SignInFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
   String _password = '';
 
@@ -70,18 +69,6 @@ class _SignUpFormState extends State<SignUpForm> {
               SizedBox(
                 height: ResponsiveHeigthAndWidth.getHeigth(0.02, 0.03, context),
               ),
-              TextFormField(
-                obscureText: true,
-                style: TextStyle(fontSize: 18),
-                decoration: _decoration('Confirm Password'),
-                validator: (value) {
-                  return Validator.validateConfirmPasswordField(
-                      _password, value);
-                },
-              ),
-              SizedBox(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.04, 0.10, context),
-              ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
@@ -95,7 +82,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   }
                 },
                 child: Text(
-                  'REGISTER',
+                  'SIGN IN',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -106,15 +93,15 @@ class _SignUpFormState extends State<SignUpForm> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Already have an account?',
+                    'Don\'t have an account?',
                     style: TextStyle(fontSize: 16),
                   ),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignIn()));
+                     return Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
-                      'Sign In',
+                      'Register',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

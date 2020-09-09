@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app-colors.dart';
+import '../service/app-colors.dart';
 
 class PageViewIndicator {
   static indicator(int pageCount, int currentPage) {

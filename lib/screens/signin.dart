@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/back-button.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/widgets/secondary-logo.dart';
-import 'package:uzotex_blind/widgets/signup-form.dart';
+import 'package:uzotex_blind/widgets/signin-form.dart';
 
-class SignUp extends StatefulWidget {
+class SignIn extends StatefulWidget {
   @override
-  _SignUpState createState() => _SignUpState();
+  _SignInState createState() => _SignInState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
         body: Column(
     children: [
-      SizedBox(height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context)),
+       SizedBox(height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context)),
       Row(
         children: [
           backButton(context),
@@ -36,7 +36,7 @@ class _SignUpState extends State<SignUp> {
         height: ResponsiveHeigthAndWidth.getHeigth(0.09, 0.03, context),
       ),
       Expanded(
-        child: SignUpForm(),
+        child: SignInForm(),
       ),
     ],
         ),
