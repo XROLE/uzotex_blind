@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/page-view-indicator.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
+import 'package:uzotex_blind/widgets/secondary-logo.dart';
 
 class HomeScreens {
-  Container firstHomeScreen(context) {
+  Container firstHomeScreen(context, currentPage) {
     return Container(
       child: ListView(children: [
         Center(
@@ -14,7 +16,7 @@ class HomeScreens {
                 margin: EdgeInsets.only(
                   top: ResponsiveHeigthAndWidth.getHeigth(
                     0.3,
-                    0.3,
+                    0.1,
                     context,
                   ),
                 ),
@@ -24,10 +26,19 @@ class HomeScreens {
               ),
               Text(
                 'UZOTEX BLINDS',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              SizedBox(
+                height: ResponsiveHeigthAndWidth.getHeigth(0.3, 0.36, context),
+              ),
+              PageViewIndicator.indicator(3, currentPage),
               Container(
-                margin: EdgeInsets.only(top: ResponsiveHeigthAndWidth.getHeigth(0.4, 0.3, context)),
+                margin: EdgeInsets.only(
+                    top:
+                        ResponsiveHeigthAndWidth.getHeigth(0.1, 0.07, context)),
                 child: Text('\u00a9 Xrole'),
               ),
             ],
@@ -37,35 +48,18 @@ class HomeScreens {
     );
   }
 
-  Container secondHomeScreen(context) {
+  Container secondHomeScreen(context, currentPage) {
     return Container(
       child: Center(
           child: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.2, 0.3, context),
-              ),
-              Container(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.09, context),
-                child: Image(
-                  image: AssetImage('assets/images/uzotex_logo.png'),
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Uzotex',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 5,
-                ),
-              ),
-            ],
+          Container(
+            margin: EdgeInsets.only(
+              top: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.15, context),
+              bottom: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.15, context),
+              left: ResponsiveHeigthAndWidth.getWidth(0.28, 0.39, context),
+            ),
+            child: secondaryLogo(context),
           ),
           SizedBox(
             height: ResponsiveHeigthAndWidth.getHeigth(0.18, 0.08, context),
@@ -74,7 +68,9 @@ class HomeScreens {
             child: Center(
               child: Text(
                 'WINDOW BLIND IN',
-                style: TextStyle(fontSize: ResponsiveHeigthAndWidth.getHeigth(0.035, 0.04, context)),
+                style: TextStyle(
+                    fontSize: ResponsiveHeigthAndWidth.getHeigth(
+                        0.035, 0.04, context)),
               ),
             ),
           ),
@@ -88,7 +84,8 @@ class HomeScreens {
                 Text(
                   '2',
                   style: TextStyle(
-                    fontSize: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.10, context),
+                    fontSize:
+                        ResponsiveHeigthAndWidth.getHeigth(0.08, 0.10, context),
                   ),
                 ),
                 SizedBox(
@@ -96,21 +93,23 @@ class HomeScreens {
                 ),
                 Text(
                   'hours',
-                  style: TextStyle(fontSize: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context), letterSpacing: 13),
+                  style: TextStyle(
+                      fontSize: ResponsiveHeigthAndWidth.getHeigth(
+                          0.05, 0.05, context),
+                      letterSpacing: 13),
                 )
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: ResponsiveHeigthAndWidth.getHeigth(0.24, 0.22, context)),
-            child: Center(child: Text('I am a chosen one')),
-          ),
+          SizedBox(
+              height: ResponsiveHeigthAndWidth.getHeigth(0.25, 0.20, context)),
+          PageViewIndicator.indicator(3, currentPage),
         ],
       )),
     );
   }
 
-  Stack thirdHomeScreen(context) {
+  Stack thirdHomeScreen(context, currentPage) {
     return Stack(fit: StackFit.expand, children: [
       Container(
         color: Colors.red,
@@ -127,45 +126,32 @@ class HomeScreens {
       ),
       Positioned(
         top: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.08, context),
-        left: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.05, context),
-        child: Row(
-          children: [
-            Container(
-              height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.07, context),
-              child: Image(
-                image: AssetImage(
-                  'assets/images/uzotex_logo.png',
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              'Uzotex',
-              style: TextStyle(
-                fontSize: ResponsiveHeigthAndWidth.getHeigth(0.028, 0.045, context),
-                fontWeight: FontWeight.bold,
-                letterSpacing: 5,
-              ),
-            ),
-          ],
-        ),
+        left: ResponsiveHeigthAndWidth.getWidth(0.05, 0.05, context),
+        child: secondaryLogo(context),
+      ),
+      Positioned(
+        top: ResponsiveHeigthAndWidth.getHeigth(0.8, 0.70, context),
+        left: ResponsiveHeigthAndWidth.getWidth(0.40, 0.45, context),
+        child: PageViewIndicator.indicator(3, currentPage),
       ),
       Positioned(
         top: ResponsiveHeigthAndWidth.getHeigth(0.85, 0.80, context),
-        left: ResponsiveHeigthAndWidth.getHeigth(0.14, 0.60, context),
-        child: Container(
+        left: ResponsiveHeigthAndWidth.getWidth(0.24, 0.33, context),
+        child: RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-          decoration: BoxDecoration(
-              color: Color(AppColor.primaryColor()),
-              borderRadius: BorderRadius.circular(20)),
+          color: Color(AppColor.primaryColor()),
+          onPressed: () {
+            Navigator.pushNamed(context, '/signup');
+          },
           child: Row(
             children: [
               Text(
                 'Book Now',
                 style: TextStyle(
-                  fontSize: ResponsiveHeigthAndWidth.getHeigth(0.035, 0.05, context),
+                  fontSize:
+                      ResponsiveHeigthAndWidth.getHeigth(0.035, 0.05, context),
                   color: Colors.white,
                 ),
               ),
