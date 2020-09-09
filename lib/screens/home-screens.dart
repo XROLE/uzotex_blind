@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
-import 'package:uzotex_blind/service/page-view-indicator.dart';
+import 'package:uzotex_blind/widgets/page-view-indicator.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/widgets/secondary-logo.dart';
 

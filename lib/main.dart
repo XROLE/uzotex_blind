@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:uzotex_blind/screens/onboarding-screens.dart';
 import 'package:uzotex_blind/screens/sign-up.dart';
+import 'package:uzotex_blind/screens/signin.dart';
 
 Future main() async {
   await DotEnv().load('.env');
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/' : (context) => OnboardingScreens(),
         '/signup' : (context) => SignUp(),
+        '/signin' : (context) => SignIn(),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
