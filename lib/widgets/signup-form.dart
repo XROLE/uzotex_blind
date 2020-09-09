@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/screens/signin.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/firebase-init.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
 
@@ -93,6 +94,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data')));
                   }
+                  initFirebase();
                 },
                 child: Text(
                   'REGISTER',
@@ -111,7 +113,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignIn()));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => SignIn()));
                     },
                     child: Text(
                       'Sign In',
