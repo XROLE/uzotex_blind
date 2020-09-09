@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         children: [
           SizedBox(
-            height: ResponsiveHeigthAndWidth.getHeigth(0.15, 0.20, context),
+            height: ResponsiveHeigthAndWidth.getHeigth(0.15, 0.10, context),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
             ],
           ),
           SizedBox(
-            height: ResponsiveHeigthAndWidth.getHeigth(0.09, 0.20, context),
+            height: ResponsiveHeigthAndWidth.getHeigth(0.09, 0.03, context),
           ),
           Expanded(
             child: SignUpForm(),
