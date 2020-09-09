@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/page-view-indicator.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
+import 'package:uzotex_blind/widgets/secondary-logo.dart';
 
 class HomeScreens {
   Container firstHomeScreen(context, currentPage) {
@@ -52,30 +53,13 @@ class HomeScreens {
       child: Center(
           child: ListView(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.2, 0.3, context),
-              ),
-              Container(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.09, context),
-                child: Image(
-                  image: AssetImage('assets/images/uzotex_logo.png'),
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                'Uzotex',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 5,
-                ),
-              ),
-            ],
+          Container(
+            margin: EdgeInsets.only(
+              top: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.15, context),
+              bottom: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.15, context),
+              left: ResponsiveHeigthAndWidth.getWidth(0.28, 0.39, context),
+            ),
+            child: secondaryLogo(context),
           ),
           SizedBox(
             height: ResponsiveHeigthAndWidth.getHeigth(0.18, 0.08, context),
@@ -143,30 +127,7 @@ class HomeScreens {
       Positioned(
         top: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.08, context),
         left: ResponsiveHeigthAndWidth.getWidth(0.05, 0.05, context),
-        child: Row(
-          children: [
-            Container(
-              height: ResponsiveHeigthAndWidth.getHeigth(0.05, 0.07, context),
-              child: Image(
-                image: AssetImage(
-                  'assets/images/uzotex_logo.png',
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              'Uzotex',
-              style: TextStyle(
-                fontSize:
-                    ResponsiveHeigthAndWidth.getHeigth(0.028, 0.045, context),
-                fontWeight: FontWeight.bold,
-                letterSpacing: 5,
-              ),
-            ),
-          ],
-        ),
+        child: secondaryLogo(context),
       ),
       Positioned(
         top: ResponsiveHeigthAndWidth.getHeigth(0.8, 0.70, context),
@@ -176,11 +137,14 @@ class HomeScreens {
       Positioned(
         top: ResponsiveHeigthAndWidth.getHeigth(0.85, 0.80, context),
         left: ResponsiveHeigthAndWidth.getWidth(0.24, 0.33, context),
-        child: Container(
+        child: RaisedButton(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-          decoration: BoxDecoration(
-              color: Color(AppColor.primaryColor()),
-              borderRadius: BorderRadius.circular(20)),
+          color: Color(AppColor.primaryColor()),
+          onPressed: () {
+            Navigator.pushNamed(context, '/signup');
+          },
           child: Row(
             children: [
               Text(
