@@ -14,6 +14,7 @@ class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
+  String _error = '';
 
   InputDecoration _decoration(String labelText) {
     return InputDecoration(
@@ -85,9 +86,12 @@ class _SignInFormState extends State<SignInForm> {
                 color: Color(AppColor.primaryColor()),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    dynamic result = await AuthService().signInAnon();
-
+                    dynamic result =
+                        await AuthService().signInWithEmail(_email, _password);
                     if (result == null) {
+                      setState(() {
+                        _error = 'Invalid Email or password';
+                      });
                     } else {
                       Navigator.pushReplacement(
                         context,
@@ -126,7 +130,12 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                   ),
                 ],
-              )
+              ),
+              Center(
+                  child: Text(
+                _error,
+                style: TextStyle(color: Colors.red, fontSize: 18),
+              )),
             ],
           ),
         ),
