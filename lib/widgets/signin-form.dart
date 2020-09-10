@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/screens/dashboard.dart';
-import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -13,6 +12,7 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
+  String _email = '';
   String _password = '';
 
   InputDecoration _decoration(String labelText) {
@@ -49,6 +49,11 @@ class _SignInFormState extends State<SignInForm> {
               TextFormField(
                 style: TextStyle(fontSize: 18),
                 decoration: _decoration('Email'),
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
                 validator: (value) {
                   return Validator.validateEmailField(value);
                 },
@@ -79,18 +84,16 @@ class _SignInFormState extends State<SignInForm> {
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                 color: Color(AppColor.primaryColor()),
                 onPressed: () async {
-                  dynamic result = await AuthService().signInAnon();
-                 
-                  if (result == null) {
-                  } else {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Dashboard()),
-                    );
-                  }
                   if (_formKey.currentState.validate()) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+                    dynamic result = await AuthService().signInAnon();
+
+                    if (result == null) {
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Dashboard()),
+                      );
+                    }
                   }
                 },
                 child: Text(
