@@ -94,7 +94,6 @@ class _SignUpFormState extends State<SignUpForm> {
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data')));
                   }
-                  initFirebase();
                 },
                 child: Text(
                   'REGISTER',
@@ -113,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) => SignIn()));
                     },
                     child: Text(

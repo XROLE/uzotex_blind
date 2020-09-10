@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/screens/dashboard.dart';
+import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
 
@@ -75,7 +78,16 @@ class _SignInFormState extends State<SignInForm> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                 color: Color(AppColor.primaryColor()),
-                onPressed: () {
+                onPressed: () async {
+                  dynamic result = await AuthService().signInAnon();
+                 
+                  if (result == null) {
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Dashboard()),
+                    );
+                  }
                   if (_formKey.currentState.validate()) {
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Processing Data')));
@@ -98,7 +110,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   FlatButton(
                     onPressed: () {
-                     return Navigator.pushNamed(context, '/signup');
+                      return Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Register',
