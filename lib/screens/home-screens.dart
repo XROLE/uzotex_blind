@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uzotex_blind/models/user.dart';
+import 'package:uzotex_blind/screens/dashboard.dart';
+import 'package:uzotex_blind/screens/signin.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/widgets/page-view-indicator.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -143,7 +147,7 @@ class HomeScreens {
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
           color: Color(AppColor.primaryColor()),
           onPressed: () {
-            Navigator.pushNamed(context, '/signup');
+            Navigator.pushNamed(context, '/home');
           },
           child: Row(
             children: [

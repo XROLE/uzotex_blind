@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/screens/dashboard.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
 
@@ -10,6 +12,7 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
+  String _email = '';
   String _password = '';
 
   InputDecoration _decoration(String labelText) {
@@ -46,6 +49,11 @@ class _SignInFormState extends State<SignInForm> {
               TextFormField(
                 style: TextStyle(fontSize: 18),
                 decoration: _decoration('Email'),
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
                 validator: (value) {
                   return Validator.validateEmailField(value);
                 },
@@ -75,10 +83,17 @@ class _SignInFormState extends State<SignInForm> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                 color: Color(AppColor.primaryColor()),
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+                    dynamic result = await AuthService().signInAnon();
+
+                    if (result == null) {
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Dashboard()),
+                      );
+                    }
                   }
                 },
                 child: Text(
@@ -98,7 +113,7 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                   FlatButton(
                     onPressed: () {
-                     return Navigator.pushNamed(context, '/signup');
+                      return Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Register',

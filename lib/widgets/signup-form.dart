@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/screens/signin.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
-import 'package:uzotex_blind/service/firebase-init.dart';
+import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
 
@@ -12,7 +13,9 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String _email = '';
   String _password = '';
+  String _error = '';
 
   InputDecoration _decoration(String labelText) {
     return InputDecoration(
@@ -48,6 +51,11 @@ class _SignUpFormState extends State<SignUpForm> {
               TextFormField(
                 style: TextStyle(fontSize: 18),
                 decoration: _decoration('Email'),
+                onChanged: (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
                 validator: (value) {
                   return Validator.validateEmailField(value);
                 },
@@ -91,10 +99,25 @@ class _SignUpFormState extends State<SignUpForm> {
                 color: Color(AppColor.primaryColor()),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+                    dynamic result =
+                        AuthService().registerWithEmail(_email, _password);
+                    setState(() {
+                      _email = '';
+                      _password = '';
+                      _error = '';
+                    });
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
+                    if (result == null) {
+                      setState(() {
+                        _error = 'Please supply valid credentials';
+                      });
+                    }
                   }
-                  initFirebase();
                 },
                 child: Text(
                   'REGISTER',
@@ -113,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   FlatButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) => SignIn()));
                     },
                     child: Text(
@@ -127,7 +150,12 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   ),
                 ],
-              )
+              ),
+              Center(
+                  child: Text(
+                _error,
+                style: TextStyle(color: Colors.red, fontSize: 18),
+              )),
             ],
           ),
         ),
