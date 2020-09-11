@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:uzotex_blind/models/user.dart';
+import 'package:uzotex_blind/screens/create-category.dart';
 import 'package:uzotex_blind/screens/dashboard.dart';
 import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/screens/onboarding-screens.dart';
 import 'package:uzotex_blind/screens/sign-up.dart';
 import 'package:uzotex_blind/screens/signin.dart';
+import 'package:uzotex_blind/screens/user-navigation.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/firebase-init.dart';
 
@@ -26,8 +28,9 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => OnboardingScreens(),
-          '/home': (context) => Home(),
+          '/create-category': (context) => CreateCategory(),
           '/dashboard': (context) => Dashboard(),
+          '/navigate-user': (context) => NavigateUser(),
           '/signup': (context) => SignUp(),
           '/signin': (context) => SignIn(),
         },

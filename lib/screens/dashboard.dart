@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uzotex_blind/screens/home.dart';
+import 'package:uzotex_blind/screens/user-navigation.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 
 class Dashboard extends StatefulWidget {
@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
           child: FlatButton(
             onPressed: () async {
               await AuthService().signOut();
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigateUser()));
             },
             child: Text('Logout'),
           ),

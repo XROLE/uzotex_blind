@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uzotex_blind/screens/dashboard.dart';
+import 'package:uzotex_blind/screens/user-navigation.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -95,7 +95,7 @@ class _SignInFormState extends State<SignInForm> {
                     } else {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => Dashboard()),
+                        MaterialPageRoute(builder: (context) => NavigateUser()),
                       );
                     }
                   }

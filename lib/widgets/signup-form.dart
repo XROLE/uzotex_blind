@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/screens/signin.dart';
+import 'package:uzotex_blind/screens/user-navigation.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -109,7 +109,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Home(),
+                        builder: (context) => NavigateUser(),
                       ),
                     );
                     if (result == null) {
