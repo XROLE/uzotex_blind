@@ -147,7 +147,7 @@ class HomeScreens {
           padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
           color: Color(AppColor.primaryColor()),
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/navigate-user');
           },
           child: Row(
             children: [
