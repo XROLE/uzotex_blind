@@ -86,8 +86,6 @@ class _SignInFormState extends State<SignInForm> {
                 color: Color(AppColor.primaryColor()),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print('I am a chosen one ====> Email: $_email');
-                    print('I am a chosen one ====> Email: $_password');
                     dynamic result =
                         await AuthService().signInWithEmail(_email, _password);
                     if (result == null) {

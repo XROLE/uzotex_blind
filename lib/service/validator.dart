@@ -10,6 +10,11 @@ class Validator {
     return null;
   }
 
+  static validateField(String fieldName) {
+    return fieldName.trim().isEmpty
+        ? 'This field can not be empty'
+        : null;
+  }
   static validatePasswordField(String password) {
     return password.trim().length < 6
         ? 'Password must be at least 6 characters'
