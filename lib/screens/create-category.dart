@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
+import 'package:uzotex_blind/service/database.dart';
+import 'package:uzotex_blind/service/firebase-storage.dart';
+import 'package:uzotex_blind/service/image-picker.dart';
 import 'package:uzotex_blind/service/inpute-decoration.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
@@ -10,8 +15,17 @@ class CreateCategory extends StatefulWidget {
 }
 
 class _CreateCategoryState extends State<CreateCategory> {
+  String _error = '';
+  File _imageFile;
   final _formKey = GlobalKey<FormState>();
-  String _categoryName = '';
+  final nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +39,7 @@ class _CreateCategoryState extends State<CreateCategory> {
       body: ListView(
         children: [
           SizedBox(
-            height: ResponsiveHeigthAndWidth.getHeigth(0.10, 0.08, context),
+            height: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.08, context),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,20 +47,47 @@ class _CreateCategoryState extends State<CreateCategory> {
               Container(
                 height: 200,
                 width: 200,
-                child: Center(
-                    child: Text(
-                  'Select Image',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                )),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(AppColor.secondaryColor()),
-                        spreadRadius: 1),
+                child: Column(
+                  children: [
+                    Center(
+                      child: _imageFile == null
+                          ? Container(
+                              height: 70,
+                            )
+                          : Image.file(
+                              _imageFile,
+                              height: 150,
+                              width: 190,
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                    Center(
+                        child: FlatButton(
+                      onPressed: () async {
+                        File selectedImage = await getImage(false);
+                        setState(() {
+                          _imageFile = selectedImage;
+                          _error = '';
+                        });
+                      },
+                      child: Text(
+                        'Select Image',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                    )),
                   ],
                 ),
+                decoration: _imageFile == null
+                    ? BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color(AppColor.secondaryColor()),
+                              spreadRadius: 1),
+                        ],
+                      )
+                    : null,
               ),
               Container(
                 margin: EdgeInsets.only(top: 140),
@@ -54,12 +95,18 @@ class _CreateCategoryState extends State<CreateCategory> {
                   icon: Icon(Icons.camera_alt),
                   color: Colors.grey,
                   iconSize: 40,
-                  onPressed: () {},
+                  onPressed: () async {
+                    File selectedImage = await getImage(true);
+                    setState(() {
+                      _imageFile = selectedImage;
+                    });
+                  },
                 ),
               )
             ],
           ),
           Form(
+            key: _formKey,
             child: ListView(
               shrinkWrap: true,
               children: [
@@ -74,19 +121,22 @@ class _CreateCategoryState extends State<CreateCategory> {
                         ResponsiveHeigthAndWidth.getWidth(0.10, 0.18, context),
                   ),
                   child: TextFormField(
+                    controller: nameController,
                     style: TextStyle(fontSize: 18),
                     decoration: decorateInpute('Catergory Name'),
-                    onChanged: (value) {
+                    onChanged: (value) { 
                       setState(() {
-                        _categoryName = value;
+                        _error = '';
                       });
                     },
                     validator: (value) {
-                      return Validator.validateEmailField(value);
+                      return Validator.validateField(value);
                     },
                   ),
                 ),
-                SizedBox(height: ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
+                SizedBox(
+                    height:
+                        ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -99,15 +149,47 @@ class _CreateCategoryState extends State<CreateCategory> {
                               spreadRadius: 3)
                         ],
                       ),
-                      child: FlatButton(
-                        child: Text(
-                          'Create',
-                          style: TextStyle(
-                            fontSize: 16,
-                            letterSpacing: 2,
-                          ),
-                        ),
-                        onPressed: () {},
+                      child: Builder(
+                        builder: (BuildContext context) {
+                          return FlatButton(
+                            child: Text(
+                              'Create',
+                              style: TextStyle(
+                                fontSize: 16,
+                                letterSpacing: 2,
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                String uploadedImageUrl =
+                                    await CloudStorageService().uploadImage(
+                                  imageToUpload: _imageFile,
+                                  title: nameController.text.trim(),
+                                );
+
+                                await DatabaseService().createCategory(
+                                  nameController.text.trim(),
+                                  uploadedImageUrl,
+                                );
+
+                                Scaffold.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(nameController.text.trim()),
+                                  ),
+                                );
+                                nameController.clear();
+                                setState(() {
+                                  _imageFile = null;
+                                });
+                              } else {
+                                setState(() {
+                                  _error = 'Oops! Something went wrong';
+                                });
+                              }
+                              ;
+                            },
+                          );
+                        },
                       ),
                     ),
                     Container(
@@ -127,12 +209,33 @@ class _CreateCategoryState extends State<CreateCategory> {
                             letterSpacing: 2,
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          nameController.clear();
+                          setState(() {
+                            _imageFile = null;
+                          });
+                        },
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
+                SizedBox(
+                    height:
+                        ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
+                Center(
+                  child: Text(
+                    _error,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(
+                        AppColor.primaryColor(),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                    height:
+                        ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
               ],
             ),
           ),
