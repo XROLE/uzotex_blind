@@ -97,10 +97,10 @@ class _SignUpFormState extends State<SignUpForm> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                 color: Color(AppColor.primaryColor()),
-                onPressed: () {
+                onPressed: () async{
                   if (_formKey.currentState.validate()) {
                     dynamic result =
-                        AuthService().registerWithEmail(_email, _password);
+                        await AuthService().registerWithEmail(_email, _password);
                     setState(() {
                       _email = '';
                       _password = '';

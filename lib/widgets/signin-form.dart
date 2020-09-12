@@ -52,7 +52,7 @@ class _SignInFormState extends State<SignInForm> {
                 decoration: _decoration('Email'),
                 onChanged: (value) {
                   setState(() {
-                    _email = value;
+                    _email = value.trim();
                   });
                 },
                 validator: (value) {
@@ -68,7 +68,7 @@ class _SignInFormState extends State<SignInForm> {
                 decoration: _decoration('Password'),
                 onChanged: (value) {
                   setState(() {
-                    _password = value;
+                    _password = value.trim();
                   });
                 },
                 validator: (value) {
@@ -86,6 +86,8 @@ class _SignInFormState extends State<SignInForm> {
                 color: Color(AppColor.primaryColor()),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
+                    print('I am a chosen one ====> Email: $_email');
+                    print('I am a chosen one ====> Email: $_password');
                     dynamic result =
                         await AuthService().signInWithEmail(_email, _password);
                     if (result == null) {
