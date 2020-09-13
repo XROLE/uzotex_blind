@@ -8,6 +8,7 @@ import 'package:uzotex_blind/service/image-picker.dart';
 import 'package:uzotex_blind/service/inpute-decoration.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
+import 'package:uzotex_blind/widgets/loader.dart';
 
 class CreateCategory extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class CreateCategory extends StatefulWidget {
 }
 
 class _CreateCategoryState extends State<CreateCategory> {
+  bool _showSpinner = false;
   String _error = '';
   File _imageFile;
   final _formKey = GlobalKey<FormState>();
@@ -124,7 +126,7 @@ class _CreateCategoryState extends State<CreateCategory> {
                     controller: nameController,
                     style: TextStyle(fontSize: 18),
                     decoration: decorateInpute('Catergory Name'),
-                    onChanged: (value) { 
+                    onChanged: (value) {
                       setState(() {
                         _error = '';
                       });
@@ -137,6 +139,7 @@ class _CreateCategoryState extends State<CreateCategory> {
                 SizedBox(
                     height:
                         ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
+                _showSpinner ? loader( Colors.white, 50) : Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -145,7 +148,9 @@ class _CreateCategoryState extends State<CreateCategory> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              color: Color(AppColor.secondaryColor()),
+                              color: _showSpinner
+                                  ? Colors.white
+                                  : Color(AppColor.secondaryColor()),
                               spreadRadius: 3)
                         ],
                       ),
@@ -153,41 +158,55 @@ class _CreateCategoryState extends State<CreateCategory> {
                         builder: (BuildContext context) {
                           return FlatButton(
                             child: Text(
-                              'Create',
+                              _showSpinner ? '' : 'Create',
                               style: TextStyle(
                                 fontSize: 16,
                                 letterSpacing: 2,
                               ),
                             ),
-                            onPressed: () async {
-                              if (_formKey.currentState.validate()) {
-                                String uploadedImageUrl =
-                                    await CloudStorageService().uploadImage(
-                                  imageToUpload: _imageFile,
-                                  title: nameController.text.trim(),
-                                );
+                            onPressed: _showSpinner
+                                ? () {}
+                                : () async {
+                                    if (_formKey.currentState.validate() &&
+                                        _imageFile != null) {
+                                      setState(() {
+                                        _showSpinner = true;
+                                      });
+                                      String uploadedImageUrl =
+                                          await CloudStorageService()
+                                              .uploadImage(
+                                        imageToUpload: _imageFile,
+                                        title: nameController.text.trim(),
+                                      );
 
-                                await DatabaseService().createCategory(
-                                  nameController.text.trim(),
-                                  uploadedImageUrl,
-                                );
+                                      await DatabaseService().createCategory(
+                                        nameController.text.trim(),
+                                        uploadedImageUrl,
+                                      );
 
-                                Scaffold.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(nameController.text.trim()),
-                                  ),
-                                );
-                                nameController.clear();
-                                setState(() {
-                                  _imageFile = null;
-                                });
-                              } else {
-                                setState(() {
-                                  _error = 'Oops! Something went wrong';
-                                });
-                              }
-                              ;
-                            },
+                                      Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                          content:
+                                              Text(nameController.text.trim()),
+                                        ),
+                                      );
+
+                                      nameController.clear();
+                                      setState(() {
+                                        _imageFile = null;
+                                        _showSpinner = false;
+                                      });
+                                    } else if (_imageFile == null) {
+                                      setState(() {
+                                        _error = "Please provide category image";
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _error = 'Oops! Something went wrong';
+                                      });
+                                    }
+                                    ;
+                                  },
                           );
                         },
                       ),
@@ -197,24 +216,28 @@ class _CreateCategoryState extends State<CreateCategory> {
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              color: Color(AppColor.primaryColor()),
+                              color: _showSpinner
+                                  ? Colors.white
+                                  : Color(AppColor.primaryColor()),
                               spreadRadius: 2)
                         ],
                       ),
                       child: FlatButton(
                         child: Text(
-                          'Canceal',
+                          _showSpinner ? '' : 'Canceal',
                           style: TextStyle(
                             fontSize: 16,
                             letterSpacing: 2,
                           ),
                         ),
-                        onPressed: () {
-                          nameController.clear();
-                          setState(() {
-                            _imageFile = null;
-                          });
-                        },
+                        onPressed: _showSpinner
+                            ? () {}
+                            : () {
+                                nameController.clear();
+                                setState(() {
+                                  _imageFile = null;
+                                });
+                              },
                       ),
                     ),
                   ],

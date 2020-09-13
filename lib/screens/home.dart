@@ -94,7 +94,7 @@ class Home extends StatelessWidget {
                   ),
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/create-category');
+                      Navigator.pushNamed(context, '/cart-page');
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(

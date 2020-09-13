@@ -5,6 +5,8 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
+import 'package:uzotex_blind/widgets/loader.dart';
+
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -13,9 +15,11 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _showSpinner = false;
   String _email = '';
   String _password = '';
   String _error = '';
+  dynamic _registeredUser;
 
   InputDecoration _decoration(String labelText) {
     return InputDecoration(
@@ -54,6 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 onChanged: (value) {
                   setState(() {
                     _email = value;
+                    _error = '';
                   });
                 },
                 validator: (value) {
@@ -70,6 +75,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 onChanged: (value) {
                   setState(() {
                     _password = value;
+                    _error = '';
                   });
                 },
                 validator: (value) {
@@ -83,6 +89,11 @@ class _SignUpFormState extends State<SignUpForm> {
                 obscureText: true,
                 style: TextStyle(fontSize: 18),
                 decoration: _decoration('Confirm Password'),
+                onChanged: (value) {
+                  setState(() {
+                    _error = '';
+                  });
+                },
                 validator: (value) {
                   return Validator.validateConfirmPasswordField(
                       _password, value);
@@ -96,36 +107,46 @@ class _SignUpFormState extends State<SignUpForm> {
                     borderRadius: BorderRadius.circular(20)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-                color: Color(AppColor.primaryColor()),
-                onPressed: () async{
-                  if (_formKey.currentState.validate()) {
-                    dynamic result =
-                        await AuthService().registerWithEmail(_email, _password);
-                    setState(() {
-                      _email = '';
-                      _password = '';
-                      _error = '';
-                    });
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NavigateUser(),
+                color: _showSpinner
+                    ? Colors.white70
+                    : Color(AppColor.primaryColor()),
+                onPressed: _showSpinner
+                    ? () {}
+                    : () async {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            _showSpinner = true;
+                          });
+                          dynamic result = await AuthService()
+                              .registerWithEmail(_email, _password);
+                          
+                          setState(() {
+                            _registeredUser = result;
+                          });
+                        }
+                        if (_registeredUser.runtimeType != String) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavigateUser(),
+                            ),
+                          );
+                        } else {
+                          setState(() {
+                            _error = _registeredUser;
+                            _showSpinner = false;
+                          });
+                        }
+                      },
+                child: _showSpinner
+                    ? loader(Color(AppColor.primaryColor()), 25)
+                    : Text(
+                        'REGISTER',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
-                    );
-                    if (result == null) {
-                      setState(() {
-                        _error = 'Please supply valid credentials';
-                      });
-                    }
-                  }
-                },
-                child: Text(
-                  'REGISTER',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
