@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:uzotex_blind/models/user.dart';
+import 'package:uzotex_blind/screens/cart-items-page.dart';
 import 'package:uzotex_blind/screens/create-category.dart';
 import 'package:uzotex_blind/screens/dashboard.dart';
 import 'package:uzotex_blind/screens/home.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => OnboardingScreens(),
+          '/cart-page': (context) => CartPage(),
           '/create-category': (context) => CreateCategory(),
           '/dashboard': (context) => Dashboard(),
           '/navigate-user': (context) => NavigateUser(),

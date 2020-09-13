@@ -4,6 +4,7 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/firebase-auth.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 import 'package:uzotex_blind/service/validator.dart';
+import 'package:uzotex_blind/widgets/loader.dart';
 
 class SignInForm extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _showSpinner = false;
   String _email = '';
   String _password = '';
   String _error = '';
@@ -53,6 +55,7 @@ class _SignInFormState extends State<SignInForm> {
                 onChanged: (value) {
                   setState(() {
                     _email = value.trim();
+                    _error = '';
                   });
                 },
                 validator: (value) {
@@ -69,44 +72,56 @@ class _SignInFormState extends State<SignInForm> {
                 onChanged: (value) {
                   setState(() {
                     _password = value.trim();
+                    _error = '';
                   });
                 },
                 validator: (value) {
-                  return Validator.validatePasswordField(value);
+                  return value.isEmpty ? 'Password can not be empty' : null;
                 },
               ),
               SizedBox(
-                height: ResponsiveHeigthAndWidth.getHeigth(0.02, 0.03, context),
+                height: ResponsiveHeigthAndWidth.getHeigth(0.04, 0.03, context),
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-                color: Color(AppColor.primaryColor()),
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    dynamic result =
-                        await AuthService().signInWithEmail(_email, _password);
-                    if (result == null) {
-                      setState(() {
-                        _error = 'Invalid Email or password';
-                      });
-                    } else {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => NavigateUser()),
-                      );
-                    }
-                  }
-                },
-                child: Text(
-                  'SIGN IN',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
+                color: _showSpinner
+                    ? Colors.white70
+                    : Color(AppColor.primaryColor()),
+                onPressed: _showSpinner
+                    ? () {}
+                    : () async {
+                        if (_formKey.currentState.validate()) {
+                          setState(() {
+                            _showSpinner = true;
+                          });
+                          dynamic result = await AuthService()
+                              .signInWithEmail(_email, _password);
+                          if (result == null) {
+                            setState(() {
+                              _error = 'Invalid Email or password';
+                              _showSpinner = false;
+                            });
+                          } else {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NavigateUser()),
+                            );
+                          }
+                        }
+                      },
+                child: _showSpinner
+                    ? loader(Color(AppColor.primaryColor()), 20)
+                    : Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
