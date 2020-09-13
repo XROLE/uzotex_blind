@@ -50,7 +50,7 @@ class AppDrawer extends StatelessWidget {
         FlatButton(
           onPressed: () {
             Navigator.pop(context);
-            Navigator.pushNamed(context, '/create-category');
+            Navigator.pushNamed(context, '/add-product');
           },
           child: Text(
             'Add Product',

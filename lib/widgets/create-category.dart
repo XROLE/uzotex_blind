@@ -31,14 +31,8 @@ class _CreateCategoryState extends State<CreateCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(AppColor.primaryColor()),
-        title: Center(
-          child: Text('CREATE CATEGORY'),
-        ),
-      ),
-      body: ListView(
+    return Container(
+      child: ListView(
         children: [
           SizedBox(
             height: ResponsiveHeigthAndWidth.getHeigth(0.08, 0.08, context),
@@ -139,7 +133,7 @@ class _CreateCategoryState extends State<CreateCategory> {
                 SizedBox(
                     height:
                         ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
-                _showSpinner ? loader( Colors.white, 50) : Container(),
+                _showSpinner ? loader(Color(AppColor.primaryColor()), 50) : Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -198,7 +192,8 @@ class _CreateCategoryState extends State<CreateCategory> {
                                       });
                                     } else if (_imageFile == null) {
                                       setState(() {
-                                        _error = "Please provide category image";
+                                        _error =
+                                            "Please provide category image";
                                       });
                                     } else {
                                       setState(() {
