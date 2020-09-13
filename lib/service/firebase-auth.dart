@@ -27,7 +27,7 @@ class AuthService {
     } catch (e) {
       print(e.toString());
       if (e.toString() == _networkError) {
-        return 'Please make sure you an active internet connection';
+        return 'Please make sure you have an active internet connection';
       } else if (e.toString() == _duplicateMailError) {
         return 'User already exist';
       }
