@@ -2,15 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
-import 'package:uzotex_blind/service/database.dart';
-import 'package:uzotex_blind/service/firebase-storage.dart';
-import 'package:uzotex_blind/service/image-picker.dart';
-import 'package:uzotex_blind/service/inpute-decoration.dart';
-import 'package:uzotex_blind/service/responsive-height-width.dart';
-import 'package:uzotex_blind/service/validator.dart';
 import 'package:uzotex_blind/widgets/add-unit.dart';
 import 'package:uzotex_blind/widgets/create-category.dart';
-import 'package:uzotex_blind/widgets/loader.dart';
 
 
 class AddProduct extends StatefulWidget {
@@ -59,7 +52,7 @@ class _AddProductState extends State<AddProduct> {
         ),
         actions: [_togglePage()],
       ),
-      body: _addUnit ? CreateCategory() : Unit(),
+      body: _addUnit ? Unit() : CreateCategory(),
     );
   }
 }
