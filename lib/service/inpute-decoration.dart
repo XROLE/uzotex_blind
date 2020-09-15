@@ -4,6 +4,7 @@ import 'package:uzotex_blind/service/app-colors.dart';
 InputDecoration decorateInpute(String text) {
   return InputDecoration(
     hintText: text,
+    hintStyle: TextStyle(fontSize: 14),
     helperText: text,
     contentPadding: EdgeInsets.symmetric(vertical: 1.0),
     focusedBorder: UnderlineInputBorder(

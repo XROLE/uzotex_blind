@@ -7,7 +7,7 @@ class SampleBlindsCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final blindsCategories = Provider.of<List<Category>>(context);
-    
+
     return Container(
       height: ResponsiveHeigthAndWidth.getHeigth(0.36, 0.6, context),
       child: ListView.builder(
