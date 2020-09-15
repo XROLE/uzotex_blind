@@ -7,6 +7,7 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/database.dart';
 import 'package:uzotex_blind/service/firebase-storage.dart';
 import 'package:uzotex_blind/service/generate-id.dart';
+import 'package:uzotex_blind/service/get-category-path.dart';
 import 'package:uzotex_blind/service/image-picker.dart';
 import 'package:uzotex_blind/service/inpute-decoration.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -122,10 +123,7 @@ class _UnitState extends State<Unit> {
                 return {
                   category.name: category.uid,
                 };
-              });
-
-              // var categoryRefPath;
-              
+              }).toList();
 
               cartList.add('Select Country');
 
@@ -271,8 +269,6 @@ class _UnitState extends State<Unit> {
                                 onPressed: _showSpinner
                                     ? () {}
                                     : () async {
-                                        print(
-                                            'I am a chosen one Selected Cat =====: ${categoryController.text}');
                                         if (_formKey.currentState.validate() &&
                                             _imageFile != null) {
                                           setState(() {
@@ -284,6 +280,9 @@ class _UnitState extends State<Unit> {
                                             imageToUpload: _imageFile,
                                             title: nameController.text.trim(),
                                           );
+                                          final categoryId =
+                                              getSelectedCategoryDetails(
+                                                  cartid, dropDownValue);
 
                                           await DatabaseService().createUnit(
                                             nameController.text.trim(),
