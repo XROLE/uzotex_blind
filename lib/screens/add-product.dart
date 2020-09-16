@@ -12,11 +12,7 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  bool _showSpinner = false;
   bool _addUnit = false;
-  String _error = '';
-  File _imageFile;
-  final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
 
   Widget _togglePage() {
@@ -52,7 +48,7 @@ class _AddProductState extends State<AddProduct> {
         ),
         actions: [_togglePage()],
       ),
-      body: _addUnit ? Unit() : CreateCategory(),
+      body: _addUnit ? CreateCategory() : Unit(),
     );
   }
 }

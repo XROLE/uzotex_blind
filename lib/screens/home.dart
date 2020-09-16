@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:uzotex_blind/models/blinds_model.dart';
+import 'package:uzotex_blind/models/product.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/database.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -102,7 +102,7 @@ class Home extends StatelessWidget {
                     ),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/cart-page');
+                        Navigator.pushNamed(context, '/products');
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(

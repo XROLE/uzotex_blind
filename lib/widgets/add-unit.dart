@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uzotex_blind/models/blinds_model.dart';
+import 'package:uzotex_blind/models/product.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/database.dart';
 import 'package:uzotex_blind/service/firebase-storage.dart';
@@ -176,6 +176,7 @@ class _UnitState extends State<Unit> {
                               if (newValue != dropDownDefault) {
                                 setState(() {
                                   dropDownValue = newValue;
+                                  categoryController.text = newValue;
                                   _id.text = newValue +
                                       ' ' +
                                       generateUniqueId([0, 5]).toString();
@@ -283,19 +284,21 @@ class _UnitState extends State<Unit> {
                                           final categoryId =
                                               getSelectedCategoryDetails(
                                                   cartid, dropDownValue);
-
+                                          print(
+                                              "I am a chosen one cart Id ===> ${categoryId[categoryController.text]}");
                                           await DatabaseService().createUnit(
                                             nameController.text.trim(),
                                             categoryController.text.trim(),
                                             _id.text,
                                             uploadedImageUrl,
                                             priceController.text.trim(),
+                                            categoryId[categoryController.text.trim()],
                                           );
 
                                           Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                               content: Text(
-                                                  'Added ${nameController.text.trim()} Unit Successfuly'),
+                                                  '${_id.text} Added Successfuly'),
                                             ),
                                           );
 
