@@ -6,6 +6,7 @@ import 'package:uzotex_blind/screens/cart-items-page.dart';
 import 'package:uzotex_blind/screens/add-product.dart';
 import 'package:uzotex_blind/screens/dashboard.dart';
 import 'package:uzotex_blind/screens/onboarding-screens.dart';
+import 'package:uzotex_blind/screens/product-page.dart';
 import 'package:uzotex_blind/screens/sign-up.dart';
 import 'package:uzotex_blind/screens/signin.dart';
 import 'package:uzotex_blind/screens/user-navigation.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => OnboardingScreens(),
           '/cart-page': (context) => CartPage(),
+          '/products': (context) => Products(),
           '/add-product': (context) => AddProduct(),
           '/dashboard': (context) => Dashboard(),
           '/navigate-user': (context) => NavigateUser(),

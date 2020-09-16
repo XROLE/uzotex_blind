@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uzotex_blind/models/blinds_model.dart';
+import 'package:uzotex_blind/models/product.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
 class SampleBlindsCarousel extends StatelessWidget {
@@ -26,12 +26,17 @@ class SampleBlindsCarousel extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 7),
             child: Column(
               children: [
-                Container(
-                  height:
-                      ResponsiveHeigthAndWidth.getHeigth(0.27, 0.49, context),
-                  child: Image.network(
-                    sample.image,
-                    fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/products');
+                  },
+                  child: Container(
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.27, 0.49, context),
+                    child: Image.network(
+                      sample.image,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(

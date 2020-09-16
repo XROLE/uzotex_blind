@@ -133,7 +133,9 @@ class _CreateCategoryState extends State<CreateCategory> {
                 SizedBox(
                     height:
                         ResponsiveHeigthAndWidth.getWidth(0.10, 0.05, context)),
-                _showSpinner ? loader(Color(AppColor.primaryColor()), 50) : Container(),
+                _showSpinner
+                    ? loader(Color(AppColor.primaryColor()), 50)
+                    : Container(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -180,8 +182,8 @@ class _CreateCategoryState extends State<CreateCategory> {
 
                                       Scaffold.of(context).showSnackBar(
                                         SnackBar(
-                                          content:
-                                              Text(nameController.text.trim()),
+                                          content: Text(
+                                              '${nameController.text.trim()} Added succesfuly'),
                                         ),
                                       );
 
