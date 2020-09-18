@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
+import 'package:uzotex_blind/screens/unit-page.dart';
+import 'package:uzotex_blind/models/product.dart';
 import 'package:uzotex_blind/widgets/loader.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -30,7 +32,7 @@ class ProductGrid extends StatelessWidget {
                   top: ResponsiveHeigthAndWidth.getHeigth(0.01, 0.05, context)),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color(AppColor.secondaryColor()),
+                    color: Colors.grey[300],
                     width: 1,
                     style: BorderStyle.solid),
               ),
@@ -46,7 +48,8 @@ class ProductGrid extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: ResponsiveHeigthAndWidth.getHeigth(0.01, 0.04, context),
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.01, 0.04, context),
                   ),
                   Container(
                     height:
@@ -54,22 +57,42 @@ class ProductGrid extends StatelessWidget {
                     child: doc.data()['Image'] == null
                         ? Center(
                             child: loader(Color(AppColor.primaryColor()), 50))
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(5.0),
-                            child: Image.network(
-                              doc.data()['Image'],
-                              fit: BoxFit.fitWidth,
-                            )),
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UnitPage(),
+                                    settings: RouteSettings(
+                                        arguments: UnitModel(
+                                      id: doc.data()['Id'],
+                                      name: doc.data()['Name'],
+                                      category: doc.data()['Categpry'],
+                                      price: doc.data()['Price'],
+                                      imageUrl: doc.data()['Image'],
+                                    )),
+                                  ));
+                            },
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5.0),
+                                child: Image.network(
+                                  doc.data()['Image'],
+                                  fit: BoxFit.fitWidth,
+                                )),
+                          ),
                   ),
                   SizedBox(
-                    height: ResponsiveHeigthAndWidth.getHeigth(0.00, 0.04, context),
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.00, 0.04, context),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
                         '#${doc.data()['Price']}',
-                        style: TextStyle(fontSize: ResponsiveHeigthAndWidth.getHeigth(0.025, 0.05, context)),
+                        style: TextStyle(
+                            fontSize: ResponsiveHeigthAndWidth.getHeigth(
+                                0.025, 0.05, context)),
                       ),
                       IconButton(
                           icon: Icon(
