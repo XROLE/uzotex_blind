@@ -29,8 +29,8 @@ class _UnitState extends State<Unit> {
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final categoryController = TextEditingController();
-  String dropDownDefault = 'Select Country';
-  String dropDownValue = 'Select Country';
+  String dropDownDefault = 'Category';
+  String dropDownValue = 'Category';
   final _id = TextEditingController();
 
   void dispose() {
@@ -125,7 +125,7 @@ class _UnitState extends State<Unit> {
                 };
               }).toList();
 
-              cartList.add('Select Country');
+              cartList.add('Category');
 
               return Form(
                 key: _formKey,
@@ -284,8 +284,6 @@ class _UnitState extends State<Unit> {
                                           final categoryId =
                                               getSelectedCategoryDetails(
                                                   cartid, dropDownValue);
-                                          print(
-                                              "I am a chosen one cart Id ===> ${categoryId[categoryController.text]}");
                                           await DatabaseService().createUnit(
                                             nameController.text.trim(),
                                             categoryController.text.trim(),

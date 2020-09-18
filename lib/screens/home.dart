@@ -102,7 +102,7 @@ class Home extends StatelessWidget {
                     ),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/products');
+                        Navigator.pushNamed(context, '/order-page');
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -110,7 +110,7 @@ class Home extends StatelessWidget {
                                 0.15, 0.12, context),
                             vertical: 15),
                         child: Text(
-                          'Checkout',
+                          'My Order',
                           style: TextStyle(
                             fontSize: 18,
                             letterSpacing: 3,
