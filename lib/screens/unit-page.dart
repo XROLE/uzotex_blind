@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/models/product.dart';
+import 'package:uzotex_blind/screens/add-to-cart.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
@@ -36,6 +37,7 @@ class _UnitPageState extends State<UnitPage> {
               left: ResponsiveHeigthAndWidth.getWidth(0.03, 0.02, context),
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
+                color: Colors.white,
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -82,7 +84,9 @@ class _UnitPageState extends State<UnitPage> {
                                     fontSize: 22, color: Colors.white)),
                             Text('#${unitProduct.price}',
                                 style: TextStyle(
-                                    fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
+                                    fontSize: 22,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
                         Container(
@@ -92,7 +96,21 @@ class _UnitPageState extends State<UnitPage> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddToCart(),
+                                    settings: RouteSettings(
+                                        arguments: UnitModel(
+                                      name: unitProduct.name,
+                                      id: unitProduct.id,
+                                      price: unitProduct.price,
+                                      imageUrl: unitProduct.imageUrl,
+                                      category: unitProduct.category,
+                                    )),
+                                  ));
+                            },
                             icon: Icon(
                               Icons.add,
                               color: Colors.white,
