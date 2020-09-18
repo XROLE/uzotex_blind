@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class UnitModel {
-  int id;
+  String id;
   String name;
   String category;
-  int price;
+  String price;
   String imageUrl;
 
   UnitModel({this.name, this.id, this.price, this.imageUrl, this.category});
