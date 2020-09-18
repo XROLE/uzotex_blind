@@ -30,7 +30,7 @@ class ProductGrid extends StatelessWidget {
                   top: ResponsiveHeigthAndWidth.getHeigth(0.01, 0.05, context)),
               decoration: BoxDecoration(
                 border: Border.all(
-                    color: Color(AppColor.secondaryColor()),
+                    color: Colors.grey[300],
                     width: 1,
                     style: BorderStyle.solid),
               ),
