@@ -15,8 +15,7 @@ class _AddToCartState extends State<AddToCart> {
 
     return Scaffold(
       body: Container(
-        child: ListView(
-          shrinkWrap: true,
+              child: ListView(
           children: [
             Stack(children: [
               Container(
@@ -29,7 +28,7 @@ class _AddToCartState extends State<AddToCart> {
                 child: Image.network(unitProduct.imageUrl, fit: BoxFit.cover,),
               ),
               Positioned(
-                top: 30,
+                top: 20,
                 left: 15,
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -46,7 +45,7 @@ class _AddToCartState extends State<AddToCart> {
             child: Center(child: Text(unitProduct.id, style: TextStyle(fontSize: 22, letterSpacing: 2),),),
           ),
           SizedBox(height: ResponsiveHeigthAndWidth.getHeigth(0.02, 0.03, context),),
-          Expanded(child: CartForm(price: unitProduct.price,)),
+          CartForm(price: unitProduct.price,),
           ],
         ),
       ),

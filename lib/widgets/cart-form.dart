@@ -33,7 +33,7 @@ class _CartFormState extends State<CartForm> {
       padding: EdgeInsets.symmetric(
           horizontal: ResponsiveHeigthAndWidth.getWidth(0.03, 0.05, context)),
       child: Container(
-        height: 500,
+        height: ResponsiveHeigthAndWidth.getHeigth(0.5, 0.5, context),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -114,7 +114,7 @@ class _CartFormState extends State<CartForm> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 30),
             ],
           ),
         ),
