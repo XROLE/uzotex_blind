@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uzotex_blind/screens/order-page.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
@@ -100,7 +101,12 @@ class _CartFormState extends State<CartForm> {
               ),
               _inputVerticalSpacing,
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Orders()),
+                  );
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
