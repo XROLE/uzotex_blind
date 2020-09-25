@@ -8,4 +8,8 @@ class AppColor {
   static secondaryColor() {
     return ColorUtils.hexToInt('#6920B0');
   }
+
+  static bgColor() {
+    return ColorUtils.hexToInt('#f3f7f7');
+  }
 }

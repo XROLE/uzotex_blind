@@ -3,7 +3,7 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
 class CartCard extends StatelessWidget {
-  String image;
+  final String image;
 
   CartCard({@required this.image});
   @override

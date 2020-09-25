@@ -4,7 +4,7 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
 class CartForm extends StatefulWidget {
-  String price;
+ final String price;
 
   CartForm({@required this.price});
   @override

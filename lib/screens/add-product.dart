@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/widgets/add-unit.dart';

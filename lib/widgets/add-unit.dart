@@ -21,7 +21,7 @@ class Unit extends StatefulWidget {
 
 class _UnitState extends State<Unit> {
   bool _showSpinner = false;
-  List<String> _categories = [];
+  // List<String> _categories = [];
   String _error = '';
   File _imageFile;
   final _formKey = GlobalKey<FormState>();
@@ -290,7 +290,8 @@ class _UnitState extends State<Unit> {
                                             _id.text,
                                             uploadedImageUrl,
                                             priceController.text.trim(),
-                                            categoryId[categoryController.text.trim()],
+                                            categoryId[
+                                                categoryController.text.trim()],
                                           );
 
                                           Scaffold.of(context).showSnackBar(
@@ -326,10 +327,7 @@ class _UnitState extends State<Unit> {
                                                 'Oops! Something went wrong';
                                           });
                                         }
-                                        ;
                                       },
-
-                                // ====================================================>
                               );
                             },
                           ),

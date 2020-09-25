@@ -202,7 +202,6 @@ class _CreateCategoryState extends State<CreateCategory> {
                                         _error = 'Oops! Something went wrong';
                                       });
                                     }
-                                    ;
                                   },
                           );
                         },
