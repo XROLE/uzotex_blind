@@ -3,9 +3,13 @@ import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
 class CartCard extends StatelessWidget {
+  final String id;
+  final String price;
+  final int numWin;
+  final int total;
   final String image;
 
-  CartCard({@required this.image});
+  CartCard({@required this.image, @required this.id, @required this.price, @required this.numWin, @required this.total});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -30,19 +34,21 @@ class CartCard extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: ResponsiveHeigthAndWidth.getHeigth(0.015, 0.03, context),
+                          height: ResponsiveHeigthAndWidth.getHeigth(
+                              0.015, 0.03, context),
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'BOSS ORANGE 234',
+                                id,
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
                             ]),
                         SizedBox(
-                          height: ResponsiveHeigthAndWidth.getHeigth(0.007, 0.007, context),
+                          height: ResponsiveHeigthAndWidth.getHeigth(
+                              0.007, 0.007, context),
                         ),
                         Row(
                           children: [
@@ -51,7 +57,8 @@ class CartCard extends StatelessWidget {
                               onPressed: () {},
                             ),
                             SizedBox(
-                              width: ResponsiveHeigthAndWidth.getWidth(0.07, 0.05, context),
+                              width: ResponsiveHeigthAndWidth.getWidth(
+                                  0.07, 0.05, context),
                             ),
                             IconButton(
                               icon: Icon(Icons.remove),
@@ -60,7 +67,8 @@ class CartCard extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: ResponsiveHeigthAndWidth.getHeigth(0.007, 0.007, context),
+                          height: ResponsiveHeigthAndWidth.getHeigth(
+                              0.007, 0.007, context),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -75,7 +83,8 @@ class CartCard extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: ResponsiveHeigthAndWidth.getWidth(0.04, 0.03, context),
+                              width: ResponsiveHeigthAndWidth.getWidth(
+                                  0.04, 0.03, context),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 5),
@@ -95,25 +104,28 @@ class CartCard extends StatelessWidget {
               ),
             ),
             Container(
-              width: ResponsiveHeigthAndWidth.getWidth( 0.2, 0.2, context),
+              width: ResponsiveHeigthAndWidth.getWidth(0.2, 0.2, context),
               child: Column(
                 children: [
                   SizedBox(
-                    height: ResponsiveHeigthAndWidth.getHeigth(0.02, 0.04, context),
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.02, 0.04, context),
                   ),
-                  Text('# 750', style: TextStyle(fontWeight: FontWeight.bold)),
-                 SizedBox(
-                    height: ResponsiveHeigthAndWidth.getHeigth(0.04, 0.06, context),
+                  Text('# $price', style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.04, 0.06, context),
                   ),
                   Text(
-                    '3',
+                    '$numWin',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: ResponsiveHeigthAndWidth.getHeigth(0.04, 0.08, context),
+                    height:
+                        ResponsiveHeigthAndWidth.getHeigth(0.04, 0.08, context),
                   ),
                   Text(
-                    '# 2250',
+                    '# $total',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
