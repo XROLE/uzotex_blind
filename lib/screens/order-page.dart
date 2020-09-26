@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uzotex_blind/block/cart_bloc.dart';
+import 'package:uzotex_blind/models/product.dart';
 import 'package:uzotex_blind/screens/home.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
@@ -17,9 +18,16 @@ class Orders extends StatelessWidget {
       'http://artsweek.ca/wp-content/uploads/2018/05/window.jpg';
   final String image5 =
       'http://i.ebayimg.com/images/i/301894077135-0-1/s-l1000.jpg';
+
+  final id = 'BOSS ORANGE 203';
+  final price = '750';
+  final numWin = '3';
+  final total = '2250';
+
   @override
   Widget build(BuildContext context) {
     final CartBloc cartBloc = Provider.of<CartBloc>(context);
+    List<CartItem> cartItems = cartBloc.cartValue.map((e) => e).toList();
 
     SizedBox _widgetSpace = SizedBox(
         height: ResponsiveHeigthAndWidth.getHeigth(0.04, 0.08, context));
@@ -50,13 +58,21 @@ class Orders extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            CartCard(image: image1),
-            _widgetSpace,
-            CartCard(image: image2),
-            _widgetSpace,
-            CartCard(image: image3),
-            _widgetSpace,
-            CartCard(image: image5),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: cartItems.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: CartCard(
+                    id: cartItems[index].id,
+                    price: cartItems[index].price,
+                    numWin: cartItems[index].numWin,
+                    total: cartItems[index].total,
+                    image: cartItems[index].imageUrl,
+                  ),
+                );
+              },
+            ),
             SizedBox(height: 15),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 30),
