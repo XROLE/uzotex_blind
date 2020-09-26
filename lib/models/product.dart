@@ -10,6 +10,30 @@ class UnitModel {
   UnitModel({this.name, this.id, this.price, this.imageUrl, this.category});
 }
 
+class CartItem {
+  String id;
+  int heigth;
+  int width;
+  int area;
+  int numWin;
+  String price;
+  String category;
+  String imageUrl;
+  int total;
+
+  CartItem({
+    this.id,
+    this.heigth,
+    this.width,
+    this.area,
+    this.numWin,
+    this.price,
+    this.category,
+    this.imageUrl,
+    this.total,
+  });
+}
+
 class Category {
   @required
   String uid;
