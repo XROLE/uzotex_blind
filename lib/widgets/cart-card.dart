@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uzotex_blind/block/cart_bloc.dart';
+import 'package:uzotex_blind/screens/order-page.dart';
 import 'package:uzotex_blind/service/app-colors.dart';
 import 'package:uzotex_blind/service/responsive-height-width.dart';
 
-class CartCard extends StatelessWidget {
+class CartCard extends StatefulWidget {
   final String id;
   final String price;
   final int numWin;
   final int total;
   final String image;
 
-  CartCard({@required this.image, @required this.id, @required this.price, @required this.numWin, @required this.total});
+  CartCard(
+      {@required this.image,
+      @required this.id,
+      @required this.price,
+      @required this.numWin,
+      @required this.total});
+
+  @override
+  _CartCardState createState() => _CartCardState();
+}
+
+class _CartCardState extends State<CartCard> {
   @override
   Widget build(BuildContext context) {
+    final CartBloc cartBloc = Provider.of<CartBloc>(context);
+
     return Card(
       child: Container(
         height: ResponsiveHeigthAndWidth.getHeigth(0.22, 0.36, context),
@@ -21,7 +37,7 @@ class CartCard extends StatelessWidget {
             Container(
               width: ResponsiveHeigthAndWidth.getHeigth(0.18, 0.36, context),
               child: Image.network(
-                image,
+                widget.image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -41,7 +57,7 @@ class CartCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                id,
+                                widget.id,
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold),
                               ),
@@ -78,7 +94,13 @@ class CartCard extends StatelessWidget {
                               color: Color(AppColor.primaryColor()),
                               child: IconButton(
                                 icon: Icon(Icons.delete),
-                                onPressed: () {},
+                                onPressed: () {
+                                  cartBloc.deleteCartItem(widget.id);
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Orders()));
+                                },
                                 color: Colors.white,
                               ),
                             ),
@@ -111,13 +133,14 @@ class CartCard extends StatelessWidget {
                     height:
                         ResponsiveHeigthAndWidth.getHeigth(0.02, 0.04, context),
                   ),
-                  Text('# $price', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text('# ${widget.price}',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(
                     height:
                         ResponsiveHeigthAndWidth.getHeigth(0.04, 0.06, context),
                   ),
                   Text(
-                    '$numWin',
+                    '${widget.numWin}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -125,7 +148,7 @@ class CartCard extends StatelessWidget {
                         ResponsiveHeigthAndWidth.getHeigth(0.04, 0.08, context),
                   ),
                   Text(
-                    '# $total',
+                    '# ${widget.total}',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
