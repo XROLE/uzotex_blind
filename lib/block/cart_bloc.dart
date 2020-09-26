@@ -9,4 +9,8 @@ class CartBloc extends ChangeNotifier {
   void addToCart(CartItem unit) {
     _cartValue.add(unit);
   }
+
+  void deleteCartItem(String id) {
+    _cartValue.removeWhere((item) => item.id == id);
+  }
 }
