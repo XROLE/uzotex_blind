@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:uzotex_blind/block/cart_bloc.dart';
 import 'package:uzotex_blind/models/user.dart';
 import 'package:uzotex_blind/screens/add-product.dart';
 import 'package:uzotex_blind/screens/order-page.dart';
@@ -22,26 +23,34 @@ Future main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext  context) {
-    return StreamProvider<AppUser>.value(
-      value: AuthService().user,
-      child: MaterialApp(
-        title: 'Uzotex_blind',
-        initialRoute: '/',
-        routes: {
-          '/': (context) => OnboardingScreens(),
-          '/order-page': (context) => Orders(),
-          '/products': (context) => Products(),
-          '/add-product': (context) => AddProduct(),
-          '/dashboard': (context) => Dashboard(),
-          '/navigate-user': (context) => NavigateUser(),
-          '/signup': (context) => SignUp(),
-          '/signin': (context) => SignIn(),
-        },
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+          providers: [
+            StreamProvider<AppUser>.value(
+            value: AuthService().user,
+            ),
+            ChangeNotifierProvider<CartBloc>.value(
+              value: CartBloc(),
+            ),
+            ],
+        child: MaterialApp(
+          title: 'Uzotex_blind',
+          initialRoute: '/',
+          routes: {
+            '/': (context) => OnboardingScreens(),
+            '/order-page': (context) => Orders(),
+            '/products': (context) => Products(),
+            '/add-product': (context) => AddProduct(),
+            '/dashboard': (context) => Dashboard(),
+            '/navigate-user': (context) => NavigateUser(),
+            '/signup': (context) => SignUp(),
+            '/signin': (context) => SignIn(),
+          },
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
         ),
-      ),
-    );
+      );
+    // );
   }
 }

@@ -9,7 +9,6 @@ class CartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
       child: Container(
         height: ResponsiveHeigthAndWidth.getHeigth(0.22, 0.36, context),
         child: Row(

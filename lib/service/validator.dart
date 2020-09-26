@@ -12,7 +12,7 @@ class Validator {
 
   static validateField(String fieldName) {
     return fieldName.trim().isEmpty
-        ? 'This field can not be empty'
+        ? 'Can not be Empty'
         : null;
   }
   static validatePasswordField(String password) {
