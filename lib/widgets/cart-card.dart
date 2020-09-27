@@ -24,9 +24,16 @@ class CartCard extends StatefulWidget {
 }
 
 class _CartCardState extends State<CartCard> {
+  String quantity;
+
   @override
   Widget build(BuildContext context) {
     final CartBloc cartBloc = Provider.of<CartBloc>(context);
+    if (quantity == null) {
+      setState(() {
+        quantity = widget.numWin.toString();
+      });
+    }
 
     return Card(
       child: Container(
@@ -70,7 +77,12 @@ class _CartCardState extends State<CartCard> {
                           children: [
                             IconButton(
                               icon: Icon(Icons.add),
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                   quantity =
+                                        (int.parse(quantity) + 1).toString();
+                                });
+                              },
                             ),
                             SizedBox(
                               width: ResponsiveHeigthAndWidth.getWidth(
@@ -78,7 +90,14 @@ class _CartCardState extends State<CartCard> {
                             ),
                             IconButton(
                               icon: Icon(Icons.remove),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (int.parse(quantity) > 0) {
+                                  setState(() {
+                                    quantity =
+                                        (int.parse(quantity) - 1).toString();
+                                  });
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -140,7 +159,7 @@ class _CartCardState extends State<CartCard> {
                         ResponsiveHeigthAndWidth.getHeigth(0.04, 0.06, context),
                   ),
                   Text(
-                    '${widget.numWin}',
+                    '$quantity',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
