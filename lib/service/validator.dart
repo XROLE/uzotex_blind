@@ -22,6 +22,6 @@ class Validator {
   }
 
   static validateConfirmPasswordField(String password, String confirmPassword) {
-    return password.trim() != confirmPassword.trim() ? 'Password do not match' : null;
+    return password.trim() != confirmPassword.trim() ? 'Passwords do not match' : null;
   }
 }
